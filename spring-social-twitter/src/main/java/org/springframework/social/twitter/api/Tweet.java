@@ -32,6 +32,7 @@ public class Tweet {
 	private long fromUserId;
 	private String languageCode;
 	private String source;
+    private GeoLocation geoLocation;
 	
 	public Tweet(long id, String text, Date createdAt, String fromUser, String profileImageUrl, Long toUserId, long fromUserId, String languageCode, String source) {
 		this.id = id;
@@ -124,4 +125,12 @@ public class Tweet {
 	public void setSource(String source) {
 		this.source = source;
 	}
+
+    public GeoLocation getGeoLocation() {
+        return geoLocation;
+    }
+
+    public void setGeoLocation(GeoLocation geoLocation) {
+        this.geoLocation = geoLocation;
+    }
 }

@@ -61,6 +61,8 @@ public abstract class AbstractTwitterApiTest {
 		assertEquals("Spring Social Showcase", tweet.getSource());
 		assertEquals(1279042701000L, tweet.getCreatedAt().getTime());
 		assertEquals(Long.valueOf(123123123123L), tweet.getInReplyToStatusId());
+        assertEquals(37.78029, tweet.getGeoLocation().getLatitude(), 0.001);
+        assertEquals(-122.39697, tweet.getGeoLocation().getLongitude(), 0.001);
 	}
 	
 	protected void assertTimelineTweets(List<Tweet> tweets) {

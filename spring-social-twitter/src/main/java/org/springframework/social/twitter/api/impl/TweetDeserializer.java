@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 
 import org.codehaus.jackson.JsonNode;
@@ -27,6 +28,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
+import org.springframework.social.twitter.api.GeoLocation;
 import org.springframework.social.twitter.api.Tweet;
 
 /**
@@ -66,6 +68,19 @@ class TweetDeserializer extends JsonDeserializer<Tweet> {
 		JsonNode inReplyToStatusIdNode = tree.get("in_reply_to_status_id");
 		Long inReplyToStatusId = inReplyToStatusIdNode != null && !inReplyToStatusIdNode.isNull() ? inReplyToStatusIdNode.getLongValue() : null;
 		tweet.setInReplyToStatusId(inReplyToStatusId);
+        JsonNode geoNode = tree.get("geo");
+        JsonNode coordinatesNode = geoNode == null ? null : geoNode.get("coordinates");
+        if (coordinatesNode != null) {
+            Iterator<JsonNode> iterator = coordinatesNode.iterator();
+            if (iterator.hasNext()) {
+                double lat=iterator.next().getValueAsDouble();
+                if (iterator.hasNext()) {
+                    double lng=iterator.next().getValueAsDouble();
+                    GeoLocation geoLocation = new GeoLocation(lat,lng);
+                    tweet.setGeoLocation(geoLocation);
+                }
+            }
+        }
 		jp.skipChildren();
 		return tweet;
 	}
