@@ -41,14 +41,14 @@ class SearchTemplate extends AbstractTwitterOperations implements SearchOperatio
 	}
 
 	public SearchResults search(String query) {
-		return search(query, 1, DEFAULT_RESULTS_PER_PAGE, 0, 0);
+		return search(query, 1, DEFAULT_RESULTS_PER_PAGE, 0, 0, null, null);
 	}
 
 	public SearchResults search(String query, int page, int resultsPerPage) {
-		return search(query, page, resultsPerPage, 0, 0);
+		return search(query, page, resultsPerPage, 0, 0, null, null);
 	}
 
-	public SearchResults search(String query, int page, int resultsPerPage, long sinceId, long maxId) {
+	public SearchResults search(String query, int page, int resultsPerPage, long sinceId, long maxId, String geocode, String resultType) {
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("query", query);
 		parameters.put("rpp", String.valueOf(resultsPerPage));
@@ -62,6 +62,14 @@ class SearchTemplate extends AbstractTwitterOperations implements SearchOperatio
 			searchUrl += "&max_id={max}";
 			parameters.put("max", String.valueOf(maxId));
 		}
+        if (geocode != null) {
+            searchUrl += "&geocode={geocode}";
+            parameters.put("geocode", geocode);
+        }
+        if (resultType != null) {
+            searchUrl += "&result_type={resultType}";
+            parameters.put("resultType", resultType);
+        }
 		return restTemplate.getForObject(searchUrl, SearchResults.class, parameters);
 	}
 

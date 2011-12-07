@@ -57,12 +57,14 @@ public interface SearchOperations {
 	 * @param pageSize The number of {@link Tweet}s per page
 	 * @param sinceId The minimum {@link Tweet} ID to return in the results
 	 * @param maxId The maximum {@link Tweet} ID to return in the results
+     * @param geocode the geocode
+     * @param resultType the result type
 	 * @return a {@link SearchResults} containing the search results metadata and a list of matching {@link Tweet}s
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 * @see SearchResults
 	 * @see Tweet
 	 */
-	SearchResults search(String query, int page, int pageSize, long sinceId, long maxId);
+	SearchResults search(String query, int page, int pageSize, long sinceId, long maxId, String geocode, String resultType);
 	
 	/**
 	 * Retrieves the authenticating user's saved searches.
