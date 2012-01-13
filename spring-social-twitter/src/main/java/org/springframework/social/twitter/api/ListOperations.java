@@ -284,12 +284,11 @@ public interface ListOperations {
 
 	/**
 	 * Retrieves the subscribers to a list.
-	 * @param userId the user ID of the list owner.
 	 * @param listId the ID of the list.
 	 * @return a list of {@link TwitterProfile}s for the list's subscribers.
 	 * @throws ApiException if there is an error while communicating with Twitter.
 	 */
-	List<TwitterProfile> getListSubscribers(long userId, long listId);
+	List<TwitterProfile> getListSubscribers(long listId);
 
 	/**
 	 * Retrieves the subscribers to a list.
